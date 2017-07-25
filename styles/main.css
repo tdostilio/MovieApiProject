@@ -43,7 +43,10 @@
     text-align: center;
 }
 
-.movie-plot {
+.hidden {
+    display: hidden;
+}
+.more-content {
     /*display: */
     width: 100%;
     max-width: 300px;
@@ -52,6 +55,17 @@
     justify-content: center;
 }
 
+.good {
+    color: green;
+}
+
+.ok {
+    color: yellow;
+}
+
+.bad {
+    color: red;
+}
 .wrapper-div {
     padding: 1em 1em .5em 1em;
     background: black;
