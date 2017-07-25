@@ -6,7 +6,7 @@ var $THE_FORM = $('[data-movie-search="form"]');
 var $TITLE = $('[data-type="movieTitle"]');
 // var $GENRE = $('[data-type="genre"]');
 var $SEARCH_RESULTS = $('[data-type="search-results"]');
-
+var $GLYPHS = $('[data-type="expand"]');
 
 
 $THE_FORM.on('submit', function(event) {
@@ -29,29 +29,40 @@ $THE_FORM.on('submit', function(event) {
 );
 
 function getServerData(searchBy) {
-    return $.get((URL+'?s='+searchBy+API_KEY), function(data) {
-        console.log(data);
-    })
+    return $.get((URL+'?s='+searchBy+API_KEY));
 };
 
 function presentServerData(obj) {
     obj['Search'].forEach(function(key) {
         console.log(key);
-        var $wrapperDiv = $('<div>');
-        var $poster = $('<img src='+key['Poster']+'>');
+        var $wrapperDiv = $('<div class="wrapper-div">');
+        if (key['Poster'] !== "N/A") {
+            var $poster = $('<img src='+key['Poster']+'>');
+        } else {
+            var $poster = $('<p class="unavailable">Movie Poster Unavailable</p>');
+        }
         var $movieTitle = $('<h4 class="movie-title">'+ key['Title']+'</h4>');
         var $year = $('<p class="movie-year">'+key['Year']+'</p>');
-        $wrapperDiv
-            .append($poster)
-            .append($movieTitle)
-            .append($year)
+        var $expand = $('<span class="glyphicon glyphicon-plus expand" data-type="expand" aria-hidden="true"></span>')
+        var titleData = getInfo(key['Title'], "Plot");
+        
+        titleData.then( function(data) {
+            var $plot = $('<p class="movie-plot">'+data+'</p>');
+            $wrapperDiv
+                .append($poster)
+                .append($movieTitle)
+                .append($year)
+                .append($expand)
+                .append($plot)
         $SEARCH_RESULTS
             .append($wrapperDiv)
+        })
     }
     )};
 
 
-
-
-
-
+function getInfo(title, information) {
+    return $.get((URL+'?t='+title+API_KEY)).then( function(data) {
+        return data[information];
+    })
+}
