@@ -29,7 +29,7 @@ $THE_FORM.on('submit', function(event) {
 );
 
 function getServerData(searchBy) {
-    return $.get((URL+'?s='+searchBy+API_KEY));
+    return $.get((URL+'?s='+searchBy+'&type=movie'+API_KEY));
 };
 
 function presentServerData(obj) {

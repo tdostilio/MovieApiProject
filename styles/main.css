@@ -66,7 +66,9 @@
 .bad {
     color: red;
 }
+
 .wrapper-div {
+    align-self: flex-start;
     padding: 1em 1em .5em 1em;
     background: black;
     margin: 1em;
