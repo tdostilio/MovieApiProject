@@ -60,6 +60,7 @@ function presentServerData(obj) {
 
             $expand.on('click', function(event) {
                 $moreContent.toggleClass("hidden");
+                $expand.toggleClass("glyphicon-minus");
             });
             if ($rottenTomatoes) {
                 if (parseInt(data['Ratings'][1]['Value']) >= 85) {
