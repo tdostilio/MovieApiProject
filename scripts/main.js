@@ -4,39 +4,54 @@ var POSTER_API = "http://img.omdbapi.com/?i=tt3896198&h=600&apikey=1ca32dee";
 var $SEARCH_BUTTON = $('[data-type-submit-button]');
 var $THE_FORM = $('[data-movie-search="form"]');
 var $TITLE = $('[data-type="movieTitle"]');
-var $ACTORS = $("[data-type='actors']");
-var $GENRE = $('[data-type="genre"]');
+// var $GENRE = $('[data-type="genre"]');
+var $SEARCH_RESULTS = $('[data-type="search-results"]');
+
 
 
 $THE_FORM.on('submit', function(event) {
     event.preventDefault();
+    $SEARCH_RESULTS.empty();
     var titleData = $TITLE.val();
     console.log(titleData);
-    var actors = $ACTORS.val();
-    var genre = $GENRE.val();
-    getServerData(titleData);
-});
+    // var actors = $ACTORS.val();
+    // var genre = $GENRE.val();
+    if (titleData !== "") {
+        getServerData(titleData)
+            .then(function(data) {
+                presentServerData(data);
+            })
+        }
+    if (titleData === "") {
+        alert('Please input a movie title.');
+            }
+        }    
+);
 
 function getServerData(searchBy) {
-    $.get((URL+'?s='+searchBy+API_KEY), function(data) {
+    return $.get((URL+'?s='+searchBy+API_KEY), function(data) {
         console.log(data);
-        return data;
     })
 };
 
-function presentServerData() 
+function presentServerData(obj) {
+    obj['Search'].forEach(function(key) {
+        console.log(key);
+        var $wrapperDiv = $('<div>');
+        var $poster = $('<img src='+key['Poster']+'>');
+        var $movieTitle = $('<h4 class="movie-title">'+ key['Title']+'</h4>');
+        var $year = $('<p class="movie-year">'+key['Year']+'</p>');
+        $wrapperDiv
+            .append($poster)
+            .append($movieTitle)
+            .append($year)
+        $SEARCH_RESULTS
+            .append($wrapperDiv)
+    }
+    )};
 
 
 
 
-// http://www.omdbapi.com/?i=tt3896198&apikey=1ca32dee
-// var Data = {
-//     s: "",
 
-// }
 
-// function getServerData() {
-//     $.get(URL, function(data) {
-//     console.log(data);
-//     })
-// }
