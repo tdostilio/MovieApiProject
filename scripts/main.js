@@ -46,22 +46,26 @@ function presentServerData(obj) {
         var $expand = $('<span class="glyphicon glyphicon-plus expand" data-type="expand" aria-hidden="true"></span>');
         var titleData = getInfo(key['Title']);
         titleData.then( function(data) {
+            console.log(data);
             var $moreContent = $('<div class="more-content hidden"></div>');
             var $plot = $('<p class="movie-plot">'+data['Plot']+'</p>');
-            var $metascore = $('<p class="metascore">Metascore: '+data['Metascore']+'</p>')
+            var $rottenTomatoes = $('<p class="rottenTomatoes">Rotten Tomatoes: '+data['Ratings'][1]['Value']+'</p>');
+            var $director = $('<p class="director">'+data['Director']+'</p>');
+            
             $expand.on('click', function(event) {
                 $moreContent.toggleClass("hidden");
             });
-            if (data['Metascore'] >= 85) {
-                $metascore.addClass('good');
-            } else if (data['Metascore'] >= 70) {
-                $metascore.addClass('ok');
-            } else if (data['Metascore'] < 70) {
-                $metascore.addClass('bad');
+            if (parseInt(data['Ratings'][1]['Value']) >= 85) {
+                $rottenTomatoes.addClass('good');
+            } else if (parseInt(data['Ratings'][1]['Value']) >= 65) {
+                $rottenTomatoes.addClass('ok');
+            } else if (parseInt(data['Ratings'][1]['Value']) < 65) {
+                $rottenTomatoes.addClass('bad');
             }
             $moreContent 
                 .append($plot)
-                .append($metascore)
+                .append($rottenTomatoes)
+                .append($director)
             
             $wrapperDiv
                 .append($poster)
@@ -81,12 +85,3 @@ function getInfo(title) {
         return data;
     })
 }
-
-
-// function addClickability() {
-//     $(GLYPHS).on('click', function(event) {
-//     // event.preventDefault();
-//     // $GLYPHS.closest('div').toggleClass('hidden')
-//     console.log("i'm clicking!!!");
-//     });
-// }
