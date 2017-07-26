@@ -55,6 +55,12 @@
     justify-content: center;
 }
 
+.additional {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .good {
     color: #2ECC40;
 }
@@ -77,3 +83,4 @@
     box-shadow:0 0 20px rgba(0,0,0,0.8);
     color: white;
 }
+

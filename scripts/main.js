@@ -42,7 +42,9 @@ function presentServerData(obj) {
         }
         var $movieTitle = $('<h4 class="movie-title">'+ key['Title']+'</h4>');
         var $year = $('<p class="movie-year">'+key['Year']+'</p>');
+        var $buttons = $('<div class="additional" data-type="additional"></div>')
         var $expand = $('<span class="glyphicon glyphicon-plus expand" data-type="expand" aria-hidden="true"></span>');
+        var $suggestion =$('<button type="submit" class="btn btn-default suggest" data-type-suggestion-button>Suggest</button>');
         var titleData = getInfo(key['Title'],key['Year']);
         titleData.then( function(data) {
             console.log(data);
@@ -71,6 +73,10 @@ function presentServerData(obj) {
                     $rottenTomatoes.addClass('bad');
                 }
             }
+            $buttons
+                .append($expand)
+                .append($suggestion)
+
             $moreContent 
                 .append($plot)
                 .append($rottenTomatoes)
@@ -85,7 +91,7 @@ function presentServerData(obj) {
                 .append($poster)
                 .append($movieTitle)
                 .append($year)
-                .append($expand)
+                .append($buttons)
                 .append($moreContent)
             $SEARCH_RESULTS
                 .append($wrapperDiv)
