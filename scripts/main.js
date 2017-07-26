@@ -6,13 +6,14 @@ var $THE_FORM = $('[data-movie-search="form"]');
 var $TITLE = $('[data-type="movieTitle"]');
 var $SEARCH_RESULTS = $('[data-type="search-results"]');
 var GLYPHS = '[data-type="expand"]';
+var TMDBKEY = 'fd9c86bb058dc10dab45ea467152da3b';
 
 
 $THE_FORM.on('submit', function(event) {
     event.preventDefault();
     $SEARCH_RESULTS.empty();
     var titleData = $TITLE.val();
-    console.log(titleData);
+    // console.log(titleData);
     // var actors = $ACTORS.val();
     // var genre = $GENRE.val();
     if (titleData !== "") {
@@ -44,10 +45,29 @@ function presentServerData(obj) {
         var $year = $('<p class="movie-year">'+key['Year']+'</p>');
         var $buttons = $('<div class="additional" data-type="additional"></div>')
         var $expand = $('<span class="glyphicon glyphicon-plus expand" data-type="expand" aria-hidden="true"></span>');
-        var $suggestion =$('<button type="submit" class="btn btn-default suggest" data-type-suggestion-button>Suggest</button>');
-        var titleData = getInfo(key['Title'],key['Year']);
+        var $suggestion =$('<button type="submit" class="btn btn-default similar" data-type-suggestion-button>Similar</button>');
+        var titleData = getInfo(URL,key['Title'],key['Year']);
         titleData.then( function(data) {
             console.log(data);
+            var $api1title = data['Title'];
+            console.log($api1title);
+            getInfoMDB($api1title)
+                .then(function(data) {
+                    data.forEach(function(obj) {
+                        if (obj['title'] === $api1title) {
+                            var $movieID = obj['id'];
+                            console.log($movieID);
+                            getSimilarMovies($movieID)
+                                .then(function(data) {
+                                    data.forEach(function(obj) {
+                                        console.log(obj)
+                                    })
+                                })
+                                
+                        }
+                    })
+                })
+                
             var $moreContent = $('<div class="more-content hidden"></div>');
             var $plot = $('<p class="movie-plot">'+data['Plot']+'</p>');
             if (data['Ratings'][1]) {
@@ -60,10 +80,12 @@ function presentServerData(obj) {
             var $boxOffice = $('<p class="box-office">Box Office: '+data['BoxOffice']+'</p>');
             var $awards = $('<p class="awards">Awards: '+data['Awards']+'</p>');
 
+        
             $expand.on('click', function(event) {
                 $moreContent.toggleClass("hidden");
                 $expand.toggleClass("glyphicon-minus");
             });
+
             if ($rottenTomatoes) {
                 if (parseInt(data['Ratings'][1]['Value']) >= 85) {
                     $rottenTomatoes.addClass('good');
@@ -100,8 +122,30 @@ function presentServerData(obj) {
     )};
 
 
-function getInfo(title,year) {
-    return $.get((URL+'?t='+title+'&y='+year+API_KEY)).then( function(data) {
+function getInfo(url,title,year) {
+    return $.get((url+'?t='+title+'&y='+year+API_KEY)).then( function(data) {
         return data;
+    })
+}
+
+// https://api.themoviedb.org/3/movie/{movie_id}/recommendations?api_key=<<api_key>>&language=en-US&page=1
+
+
+function getInfoMDB(title) {
+    return $.get('https://api.themoviedb.org/3/search/movie?api_key='+TMDBKEY+'&query='+title).then( function(data) {
+        return (data.results)
+    })
+}
+
+
+function getSimilarMovies(movieId) {
+    return $.get('https://api.themoviedb.org/3/movie/'+movieId+'/recommendations?api_key=fd9c86bb058dc10dab45ea467152da3b&language=en-US&page=1').then( function(data) {
+        return(data.results);
+        });
+    };
+
+function presentSimilarTitles(obj) {
+    obj.results.forEach(function(key) {
+       return key
     })
 }
