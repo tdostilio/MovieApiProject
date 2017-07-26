@@ -72,6 +72,23 @@
     padding: 3px 6px;
 }
 
+.similar-movie-poster {
+    max-width: 80px;
+    margin-bottom: 1em;
+}
+
+.results-container {
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+
+}
+
 .good {
     color: #2ECC40;
 }

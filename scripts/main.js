@@ -13,9 +13,6 @@ $THE_FORM.on('submit', function(event) {
     event.preventDefault();
     $SEARCH_RESULTS.empty();
     var titleData = $TITLE.val();
-    // console.log(titleData);
-    // var actors = $ACTORS.val();
-    // var genre = $GENRE.val();
     if (titleData !== "") {
         getServerData(titleData)
             .then(function(data) {
@@ -57,10 +54,13 @@ function presentServerData(obj) {
                         if (obj['title'] === $api1title) {
                             var $movieID = obj['id'];
                             console.log($movieID);
+                            var $wrappedBox = $('<div class="similar-titles" data-type="similar"</div>')
                             getSimilarMovies($movieID)
                                 .then(function(data) {
                                     data.forEach(function(obj) {
                                         console.log(obj)
+                                        $wrapperDiv
+                                            .append(createSimilarHTML(obj))
                                     })
                                 })
                                 
@@ -85,6 +85,12 @@ function presentServerData(obj) {
                 $moreContent.toggleClass("hidden");
                 $expand.toggleClass("glyphicon-minus");
             });
+
+            $suggestion.on('click',function(event) {
+                $wrapperDiv.find(".results-container").toggleClass("hidden");
+            })
+
+        
 
             if ($rottenTomatoes) {
                 if (parseInt(data['Ratings'][1]['Value']) >= 85) {
@@ -115,6 +121,8 @@ function presentServerData(obj) {
                 .append($year)
                 .append($buttons)
                 .append($moreContent)
+
+
             $SEARCH_RESULTS
                 .append($wrapperDiv)
         })
@@ -149,3 +157,25 @@ function presentSimilarTitles(obj) {
        return key
     })
 }
+
+function createSimilarHTML(obj) {
+    var $resultscontainer = $('<div class="results-container hidden"></div>');
+    var $poster = $('<img>',{
+        "src": "https://image.tmdb.org/t/p/w500"+obj.poster_path,
+        "class": "similar-movie-poster",
+        "data-type": "similar-movie-poster"
+    })
+    var $title = $('<p class="related-title">'+obj.title+'</p>');
+    var $relatedPlot = $('<p class="related-plot">'+obj.overview+'</p>');
+    var $release = $('<p class="release-date">'+obj.release_date+'</p>');
+
+    $resultscontainer
+        .append($poster)
+        .append($title)
+        .append($title)
+        .append($relatedPlot)
+        .append($release)
+
+    return $resultscontainer
+}
+
