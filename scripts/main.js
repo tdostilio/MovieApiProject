@@ -126,7 +126,7 @@ function presentServerData(obj) {
 
 
 function getInfo(url,title,year) {
-    return $.get((url+'?t='+title+'&y='+year+API_KEY)).then( function(data) {
+    return $.get((url+'?t='+title+'&y='+year+'&'+API_KEY)).then( function(data) {
         return data;
     })
 }
