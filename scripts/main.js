@@ -1,12 +1,12 @@
 var URL = "http://www.omdbapi.com/";
-var API_KEY = "&apikey=1ca32dee";
-var POSTER_API = "http://img.omdbapi.com/?i=tt3896198&h=600&apikey=1ca32dee";
+var API_KEY = config.movieKey;
+var POSTER_API = "http://img.omdbapi.com/?i=tt3896198&h=600&apikey="+API_KEY;
 var $SEARCH_BUTTON = $('[data-type-submit-button]');
 var $THE_FORM = $('[data-movie-search="form"]');
 var $TITLE = $('[data-type="movieTitle"]');
 var $SEARCH_RESULTS = $('[data-type="search-results"]');
 var GLYPHS = '[data-type="expand"]';
-var TMDBKEY = 'fd9c86bb058dc10dab45ea467152da3b';
+var TMDBKEY = config.TMDBKEY;
 
 
 $THE_FORM.on('submit', function(event) {
@@ -45,20 +45,15 @@ function presentServerData(obj) {
         var $suggestion =$('<button type="submit" class="btn btn-default similar" data-type-suggestion-button>Similar</button>');
         var titleData = getInfo(URL,key['Title'],key['Year']);
         titleData.then( function(data) {
-            console.log(data);
             var $api1title = data['Title'];
-            console.log($api1title);
             getInfoMDB($api1title)
                 .then(function(data) {
                     data.forEach(function(obj) {
                         if (obj['title'] === $api1title) {
                             var $movieID = obj['id'];
-                            console.log($movieID);
-                            var $wrappedBox = $('<div class="similar-titles" data-type="similar"</div>')
                             getSimilarMovies($movieID)
                                 .then(function(data) {
                                     data.forEach(function(obj) {
-                                        console.log(obj)
                                         $wrapperDiv
                                             .append(createSimilarHTML(obj))
                                     })
@@ -166,15 +161,15 @@ function createSimilarHTML(obj) {
         "data-type": "similar-movie-poster"
     })
     var $title = $('<p class="related-title">'+obj.title+'</p>');
+    var $release = $('<p class="release-date">'+(obj.release_date).substring(0,4)+'</p>');
     var $relatedPlot = $('<p class="related-plot">'+obj.overview+'</p>');
-    var $release = $('<p class="release-date">'+obj.release_date+'</p>');
+    
 
     $resultscontainer
         .append($poster)
         .append($title)
-        .append($title)
-        .append($relatedPlot)
         .append($release)
+        .append($relatedPlot)
 
     return $resultscontainer
 }
