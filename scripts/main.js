@@ -66,7 +66,7 @@ function presentServerData(obj) {
             var $moreContent = $('<div class="more-content hidden"></div>');
             var $plot = $('<p class="movie-plot">'+data['Plot']+'</p>');
             if (data['Ratings'][1]) {
-            var $rottenTomatoes = $('<p class="rottenTomatoes">Rotten Tomatoes: '+data['Ratings'][1]['Value']+'</p>');
+                var $rottenTomatoes = $('<p class="rottenTomatoes">Rotten Tomatoes: '+data['Ratings'][1]['Value']+'</p>');
             };
             var $director = $('<p class="director">Director: '+data['Director']+'</p>');
             var $actors = $('<p class="actors">Actors: '+data['Actors']+'</p>');
@@ -74,7 +74,6 @@ function presentServerData(obj) {
             var $rating = $('<p class="rating">Rated: '+data['Rated']+'</p>');
             var $boxOffice = $('<p class="box-office">Box Office: '+data['BoxOffice']+'</p>');
             var $awards = $('<p class="awards">Awards: '+data['Awards']+'</p>');
-
         
             $expand.on('click', function(event) {
                 $moreContent.toggleClass("hidden");
@@ -84,8 +83,6 @@ function presentServerData(obj) {
             $suggestion.on('click',function(event) {
                 $wrapperDiv.find(".results-container").toggleClass("hidden");
             })
-
-        
 
             if ($rottenTomatoes) {
                 if (parseInt(data['Ratings'][1]['Value']) >= 85) {
