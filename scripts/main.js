@@ -42,7 +42,7 @@ function presentServerData(obj) {
         var $year = $('<p class="movie-year">'+key['Year']+'</p>');
         var $buttons = $('<div class="additional" data-type="additional"></div>')
         var $expand = $('<span class="glyphicon glyphicon-plus expand" data-type="expand" aria-hidden="true"></span>');
-        var $suggestion =$('<button type="submit" class="btn btn-default similar" data-type-suggestion-button>Similar</button>');
+        var $suggestion =$('<button type="submit" class="btn btn-default similar" data-type-suggestion-button>Suggestions</button>');
         var titleData = getInfo(URL,key['Title'],key['Year']);
         titleData.then( function(data) {
             var $api1title = data['Title'];
