@@ -41,7 +41,7 @@ Some of the biggest challenges I faced with this project build included:
   
 ##Code Snippets
 ```
-//Below is the main search function that occus on form submit 
+//Below is the main search function that occurs on form submit 
 $THE_FORM.on('submit', function(event) {
     event.preventDefault();
     $SEARCH_RESULTS.empty();
