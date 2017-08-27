@@ -1,5 +1,10 @@
+![Alt text](images/MovieWizard.png)
+
 ## Overview: The Movie Wizard is a web application that takes a movie title and presents relevant infomation along with suggestions for other titles you may like.  
   
+##Website
+www.movieswizard.com
+
 ##Languages used: 
   - HTML5
   - CSS
@@ -55,28 +60,11 @@ $THE_FORM.on('submit', function(event) {
 ```
 
 ##Screenshots
-![Alt text](images/home-page.png?raw=true)
-This is a shot of the home page for the application. The form excepts a location you desire to move to, a job you would like, and a time frame that the job was listed in. 
+![Alt text](images/LOTR.png)
+This is a shot of an example search
 
-![Alt text](images/atlanta.png?raw=true)
-This is a shot of the map page. A google map is displayed with a heat map overlay indicating areas of high job concentration. This allows the user to see where the best jobs are located to find a place to stay. 
+![Alt text](images/SINGLE_TITLE.png)
+This is a shot of the relevant movie info that is presented.
 
-##YouTube Video
-https://youtu.be/b0IKJUky6xU
-
-##Desired Contributions: We love anyone who is willing to contibute to our project. Here are some features we have not implemented that would make the site better.
-  - unlimited geocoding API
-  - integration with airBnB to display places to rent
-  - allow recruiter information to be gather on clicking a heatmap     object
-
-##Contributing
-  1. Fork it
-  2. Create a new feature branch(named after your intended feature):    git checkout -b new-feature-name
-  3. Commit your changes: git commit -am 'added the feature!'
-  4. Push to your feature branch: git push origin new-feature-name
-  5. Submit a pull request!
-  6. We will review and get back to you!
-  
 ##Project History
-Start: 07/27/17
-End: 08/1/17
+Started: 07/24/17
