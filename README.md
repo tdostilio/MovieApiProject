@@ -34,7 +34,7 @@ Some of the biggest challenges I faced with this project build included:
     Solution: Using Promise.All() to handle the asynchronous callbacks.
 
   - Making up for the shortfalls of my API and tying in another. 
-    Solution: Discovered the TMDB API and used that to popular the suggestions
+    Solution: Discovered the TMDB API and used that to populate the suggestions
 
   - Styling:
     Solution: Styling the elements is still unfinished, ideally I would like to add some sort of carousel for the titles and make the "Suggestions" populate in a different way for larger viewports.
