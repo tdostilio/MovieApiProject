@@ -40,7 +40,7 @@ Some of the biggest challenges I faced with this project build included:
     Solution: Styling the elements is still unfinished, ideally I would like to add some sort of carousel for the titles and make the "Suggestions" populate in a different way for larger viewports.
   
 ##Code Snippets
-```
+``` javascript
 //Below is the main search function that occurs on form submit 
 $THE_FORM.on('submit', function(event) {
     event.preventDefault();

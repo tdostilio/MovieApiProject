@@ -31,7 +31,6 @@ function getServerData(searchBy) {
 
 function presentServerData(obj) {
     obj['Search'].forEach(function(key) {
-        console.log(key);
         var $wrapperDiv = $('<div class="wrapper-div">');
         if (key['Poster'] !== "N/A") {
             var $poster = $('<img src='+key['Poster']+'>');
